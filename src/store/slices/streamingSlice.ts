@@ -5,14 +5,14 @@ import {
   BIG_BIZNIS_HERE_ORDER,
   CHEAP_ORDER,
   formatMessage,
-  OrdersMessage,
+  OrderMessage,
   SOLID_ORDER_ORDER,
 } from "@crypto-stream/utils";
 
 export interface StreamingState {
   isStreaming: boolean;
-  orders: OrdersMessage[];
-  alerts: OrdersMessage[];
+  orders: OrderMessage[];
+  alerts: OrderMessage[];
 }
 
 const initialState: StreamingState = {

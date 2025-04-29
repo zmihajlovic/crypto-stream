@@ -1,9 +1,9 @@
-import { AlertMessage, OrdersMessage } from "@crypto-stream/utils";
+import { AlertMessage, OrderMessage } from "@crypto-stream/utils";
 import { Box, Divider, styled } from "@mui/material";
 import { lightGreen, purple, orange, red, blue } from "@mui/material/colors";
 
 interface OrderProps {
-  order: OrdersMessage;
+  order: OrderMessage;
 }
 
 const colorMap: Record<AlertMessage, string> = {

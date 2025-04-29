@@ -2,7 +2,7 @@ import { StreamMessage } from "@crypto-stream/hooks";
 
 export type AlertMessage = "Cheap order" | "Solid order" | "Big biznis here";
 
-export interface OrdersMessage {
+export interface OrderMessage {
   price: number;
   quantity: number;
   total: number;
@@ -49,7 +49,7 @@ const getAlertMessage = (price: number, quantity: number) => {
  * @param message as StreamMessage
  * @returns
  */
-export const formatMessage = (message: StreamMessage): OrdersMessage => {
+export const formatMessage = (message: StreamMessage): OrderMessage => {
   return {
     price: message.P,
     quantity: message.Q,
