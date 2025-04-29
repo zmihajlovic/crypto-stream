@@ -5,7 +5,11 @@ import { setStreamingMessages } from "@crypto-stream/store";
 
 const STREAMING_API_KEY = import.meta.env.VITE_STREAMING_API_KEY;
 const SOCKET_URL = "wss://streamer.cryptocompare.com/v2";
-const SUBSCRIPTION = "8~Binance~BTC~USDT";
+const SUBSCRIPTION_TOPIC = "8~Binance~BTC~USDT";
+const SUBSCRIPTION_ACTION = "SubAdd";
+const NOTIFY_ERROR_MESSAGE = "WebSocket connection failed.";
+const NOTIFY_SUCCESS_MESSAGE = "Streaming has been started.";
+const NOTIFY_INFO_MESSAGE = "Streaming has been interrupted.";
 
 export interface StreamMessage {
   ACTION: number;
@@ -22,6 +26,8 @@ export interface StreamMessage {
   TYPE: string;
 }
 
+const ORDER_MESSAGE_TYPE = "8";
+
 /**
  * @description Hook for app connection to webSocket.
  */
@@ -34,7 +40,9 @@ export const useCryptoStreaming = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!isStreaming) return;
+    if (!isStreaming) {
+      return;
+    }
 
     const socket = new WebSocket(`${SOCKET_URL}?api_key=${STREAMING_API_KEY}`);
     socketRef.current = socket;
@@ -42,27 +50,27 @@ export const useCryptoStreaming = () => {
     socket.onopen = () => {
       socket.send(
         JSON.stringify({
-          action: "SubAdd",
-          subs: [SUBSCRIPTION],
+          action: SUBSCRIPTION_ACTION,
+          subs: [SUBSCRIPTION_TOPIC],
         })
       );
-      notify("success", "Streaming has been started.");
+      notify("success", NOTIFY_SUCCESS_MESSAGE);
     };
 
     socket.onmessage = (event) => {
       const message: StreamMessage = JSON.parse(event.data);
 
-      if (message.TYPE === "8") {
+      if (message.TYPE === ORDER_MESSAGE_TYPE) {
         dispatch(setStreamingMessages(message));
       }
     };
 
     socket.onerror = () => {
-      notify("error", "WebSocket connection failed.");
+      notify("error", NOTIFY_ERROR_MESSAGE);
     };
 
     socket.onclose = () => {
-      notify("info", "Streaming has been interrupted.");
+      notify("info", NOTIFY_INFO_MESSAGE);
     };
 
     return () => {
