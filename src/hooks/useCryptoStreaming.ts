@@ -31,9 +31,6 @@ export const useCryptoStreaming = () => {
   const isStreaming = useAppSelector(
     (state) => state.streamingSlice.isStreaming
   );
-  const isStreamingStartedIntentionaly = useAppSelector(
-    (state) => state.streamingSlice.isStreamingStartedIntentionaly
-  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -49,34 +46,27 @@ export const useCryptoStreaming = () => {
           subs: [SUBSCRIPTION],
         })
       );
-
-      if (!isStreamingStartedIntentionaly) {
-        notify("info", "Streaming has been started!");
-        return;
-      }
-
-      notify("success", "Streaming has been started again!");
+      notify("success", "Streaming has been started.");
     };
 
     socket.onmessage = (event) => {
       const message: StreamMessage = JSON.parse(event.data);
 
-      if (message.TYPE === "8" && message.P && message.Q) {
+      if (message.TYPE === "8") {
         dispatch(setStreamingMessages(message));
       }
     };
 
     socket.onerror = () => {
-      // use logs in development mode
+      notify("error", "WebSocket connection failed.");
     };
 
     socket.onclose = () => {
-      // use logs in development mode
+      notify("info", "Streaming has been interrupted.");
     };
 
     return () => {
       socket.close();
-      notify("warning", "Streaming has been interrupted!");
     };
-  }, [dispatch, isStreaming, isStreamingStartedIntentionaly, notify]);
+  }, [dispatch, isStreaming, notify]);
 };

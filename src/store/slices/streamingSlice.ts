@@ -11,14 +11,12 @@ import {
 
 export interface StreamingState {
   isStreaming: boolean;
-  isStreamingStartedIntentionaly: boolean;
   orders: OrdersMessage[];
   alerts: OrdersMessage[];
 }
 
 const initialState: StreamingState = {
-  isStreaming: true,
-  isStreamingStartedIntentionaly: false,
+  isStreaming: false,
   orders: [],
   alerts: [],
 };
@@ -38,7 +36,6 @@ export const streamingSlice = createSlice({
 
     startStreaming: (state) => {
       state.isStreaming = true;
-      state.isStreamingStartedIntentionaly = true;
     },
 
     setStreamingMessages: (state, action: PayloadAction<StreamMessage>) => {

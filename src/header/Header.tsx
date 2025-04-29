@@ -30,7 +30,7 @@ export const Header = () => {
         style={{ paddingLeft: "16px", paddingRight: "16px", display: "flex" }}
       >
         <NavLink to="/orders">
-          <Button sx={{ textTransform: "capitalize" }}>See orders</Button>
+          <Button sx={{ textTransform: "capitalize" }}>Orders</Button>
         </NavLink>
         {isStreaming ? (
           <Button

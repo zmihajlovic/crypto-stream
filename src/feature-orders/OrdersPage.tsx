@@ -1,14 +1,7 @@
-import { Box, Divider, styled, Typography } from "@mui/material";
-import { lightGreen, orange, red, blue, purple } from "@mui/material/colors";
-import { AlertMessage } from "@crypto-stream/utils";
+import { Box, styled, Typography } from "@mui/material";
+import { orange, red, blue } from "@mui/material/colors";
 import { useAppSelector } from "@crypto-stream/store";
-import { Fragment } from "react";
-
-const colorMap: Record<AlertMessage, string> = {
-  "Cheap order": orange[500],
-  "Solid order": blue[500],
-  "Big biznis here": red["A400"],
-};
+import { Order } from "./Order";
 
 const OrdersBox = styled(Box)(() => ({
   width: "100vw",
@@ -17,20 +10,21 @@ const OrdersBox = styled(Box)(() => ({
   top: 0,
   left: 0,
   backgroundColor: "var(--terminal-purple)",
-  padding: "32px 16px",
+  padding: "32px 0",
   display: "flex",
   flexDirection: "column",
 }));
 
-const InfoBox = styled("div")(({ color }) => ({
+const InfoBox = styled("div")<{ color: string }>(({ color }) => ({
   marginTop: 0,
   marginBottom: "8px",
-  color: color,
+  color,
   display: "flex",
   alignItems: "center",
+  padding: "0 16px",
 }));
 
-const InfoSign = styled("span")(({ color }) => ({
+const InfoSign = styled("span")<{ color: string }>(({ color }) => ({
   width: "15px",
   height: "15px",
   backgroundColor: color,
@@ -62,42 +56,10 @@ export const OrdersPage = () => {
       <Box sx={{ mt: 4, overflowY: orders.length ? "scroll" : "auto" }}>
         {orders.length ? (
           orders.map((order) => {
-            const {
-              price,
-              action,
-              ccseq,
-              delayNs,
-              fsym,
-              m,
-              quantity,
-              repotedNs,
-              seq,
-              side,
-              total,
-              tsym,
-              type,
-            } = order;
-            return (
-              <Fragment key={order.ccseq}>
-                <p
-                  key={order.ccseq}
-                  style={{
-                    color: order.alertMessage
-                      ? colorMap[order.alertMessage]
-                      : lightGreen["A400"],
-                    fontSize: "12px",
-                    wordWrap: "break-word",
-                    fontFamily: '"Fira Code", monospace',
-                  }}
-                >
-                  {`Price: ${price} - Quantity: ${quantity} - Total: ${total} - Action: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${repotedNs} - SEQ: ${seq} - Side: ${side}- TSYM: ${tsym} - Type: ${type}`}
-                </p>
-                <Divider sx={{ my: 2, borderColor: purple[500] }} />
-              </Fragment>
-            );
+            return <Order order={order} key={order.ccseq}></Order>;
           })
         ) : (
-          <Typography color={"var(--white)"}>
+          <Typography px={2} color={"var(--white)"}>
             No orders at the moment
           </Typography>
         )}

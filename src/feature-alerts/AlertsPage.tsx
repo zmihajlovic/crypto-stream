@@ -23,7 +23,7 @@ export const AlertsPage = () => {
 
   return (
     <>
-      <Typography mb={4} variant="h5">
+      <Typography mb={4} variant="h4">
         Alerts
       </Typography>
       <Typography>Number of Cheap alerts: {cheapOrderAlers.length}</Typography>
