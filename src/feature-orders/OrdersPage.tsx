@@ -74,7 +74,7 @@ interface InformationBoxProps {
 }
 
 /**
- * Colored information box
+ * @description Colored information box
  * @param infoText as string, color as string
  * @returns InformationBox
  */

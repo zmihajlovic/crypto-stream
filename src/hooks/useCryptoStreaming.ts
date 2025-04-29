@@ -23,7 +23,7 @@ export interface StreamMessage {
 }
 
 /**
- * Hook for app connection to webSocket.
+ * @description Hook for app connection to webSocket.
  */
 export const useCryptoStreaming = () => {
   const notify = useNotification();

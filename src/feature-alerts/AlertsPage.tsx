@@ -1,8 +1,8 @@
 import { alertsSelector, useAppSelector } from "@crypto-stream/store";
 import {
-  BIG_BIZNIS_HERE_ALERT,
-  CHEAP_ORDER_ALERT,
-  SOLID_ORDER_ALERT,
+  BIG_BIZNIS_HERE_ORDER,
+  CHEAP_ORDER,
+  SOLID_ORDER_ORDER,
 } from "@crypto-stream/utils";
 import { Box, Typography } from "@mui/material";
 
@@ -10,15 +10,15 @@ export const AlertsPage = () => {
   const alerts = useAppSelector(alertsSelector);
 
   const cheapOrderAlerts = alerts.filter(
-    (alert) => alert.alertMessage === CHEAP_ORDER_ALERT
+    (alert) => alert.alertMessage === CHEAP_ORDER
   );
 
   const solidOrderAlerts = alerts.filter(
-    (alert) => alert.alertMessage === SOLID_ORDER_ALERT
+    (alert) => alert.alertMessage === SOLID_ORDER_ORDER
   );
 
   const biznisOrderAlerts = alerts.filter(
-    (alert) => alert.alertMessage === BIG_BIZNIS_HERE_ALERT
+    (alert) => alert.alertMessage === BIG_BIZNIS_HERE_ORDER
   );
 
   return (

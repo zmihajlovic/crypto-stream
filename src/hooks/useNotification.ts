@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 type NotificationType = "success" | "info" | "warning" | "error";
 
 /**
- * Hook to access notify function
+ * @description Hook to access notify function
  * @returns notify function
  */
 export const useNotification = () => {

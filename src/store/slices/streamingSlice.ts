@@ -2,11 +2,11 @@ import { StreamMessage } from "@crypto-stream/hooks";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import {
-  BIG_BIZNIS_HERE_ALERT,
-  CHEAP_ORDER_ALERT,
+  BIG_BIZNIS_HERE_ORDER,
+  CHEAP_ORDER,
   formatMessage,
   OrdersMessage,
-  SOLID_ORDER_ALERT,
+  SOLID_ORDER_ORDER,
 } from "@crypto-stream/utils";
 
 export interface StreamingState {
@@ -24,7 +24,7 @@ const initialState: StreamingState = {
 const MAX_STREAMING_ORDERS = 500;
 
 /**
- * StreamingSlice of the app.
+ * @description StreamingSlice of the app.
  */
 export const streamingSlice = createSlice({
   name: "counter",
@@ -44,9 +44,10 @@ export const streamingSlice = createSlice({
       state.orders = [message, ...state.orders].slice(0, MAX_STREAMING_ORDERS);
 
       const isAlertOrder =
-        message.alertMessage === CHEAP_ORDER_ALERT ||
-        message.alertMessage === SOLID_ORDER_ALERT ||
-        message.alertMessage === BIG_BIZNIS_HERE_ALERT;
+        message.alertMessage === CHEAP_ORDER ||
+        message.alertMessage === SOLID_ORDER_ORDER ||
+        message.alertMessage === BIG_BIZNIS_HERE_ORDER;
+
       if (isAlertOrder) {
         state.alerts = [message, ...state.alerts];
       }
@@ -58,6 +59,6 @@ export const { stopStreaming, startStreaming, setStreamingMessages } =
   streamingSlice.actions;
 
 /**
- * Alerts selector from the store according to conditions
+ * @description Alerts selector from the store according to conditions
  */
 export const alertsSelector = (state: RootState) => state.streamingSlice.alerts;

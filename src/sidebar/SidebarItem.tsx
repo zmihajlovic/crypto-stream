@@ -27,7 +27,7 @@ const SidebarListItem = styled(ListItem)(() => ({
 }));
 
 /**
- * SidebarItem, used for main Sidebar
+ * @description SidebarItem, used for main Sidebar
  * @returns SidebarItem
  * @param label as string, to as string, icon as ReactNode
  */
