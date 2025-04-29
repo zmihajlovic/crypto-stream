@@ -1,0 +1,28 @@
+:root {
+  --gray-12: rgba(5, 5, 5, 0.12);
+  --terminal-purple: #300a24;
+  --white: #fff;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+.Toastify__close-button {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.Toastify__toast {
+  min-height: 20px;
+}
