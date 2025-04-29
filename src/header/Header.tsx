@@ -13,7 +13,7 @@ const AppHeader = styled("header")(() => ({
 
 /**
  *
- * Represents main Header of app.
+ * Main Header of app.
  * @returns Header
  */
 export const Header = () => {

@@ -21,7 +21,7 @@ const Drawer = styled(MuiDrawer)(() => ({
 
 /**
  *
- * Represents Sidebar of whole app.
+ * Sidebar of whole app.
  * @returns Sidebar
  */
 export const Sidebar = () => {

@@ -24,7 +24,7 @@ const initialState: StreamingState = {
 const MAX_STREAMING_ORDERS = 500;
 
 /**
- * Represents streamingSlice of the app.
+ * StreamingSlice of the app.
  */
 export const streamingSlice = createSlice({
   name: "counter",
@@ -58,6 +58,6 @@ export const { stopStreaming, startStreaming, setStreamingMessages } =
   streamingSlice.actions;
 
 /**
- * Represents alerts selector from the store according to conditions
+ * Alerts selector from the store according to conditions
  */
 export const alertsSelector = (state: RootState) => state.streamingSlice.alerts;
