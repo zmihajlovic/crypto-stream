@@ -30,7 +30,7 @@ export const Order = ({ order }: OrderProps) => {
     fsym,
     m,
     quantity,
-    repotedNs,
+    reportedNs,
     seq,
     side,
     total,
@@ -40,7 +40,7 @@ export const Order = ({ order }: OrderProps) => {
   return (
     <Box px={2}>
       <OrderBox alertMessage={order.alertMessage}>
-        {`Price: ${price} - Quantity: ${quantity} - Total: ${total} - Action: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${repotedNs} - SEQ: ${seq} - Side: ${side}- TSYM: ${tsym} - Type: ${type}`}
+        {`Price: ${price} - Quantity: ${quantity} - Total: ${total} - Action: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${reportedNs} - SEQ: ${seq} - Side: ${side}- TSYM: ${tsym} - Type: ${type}`}
       </OrderBox>
       <Divider sx={{ my: 2, borderColor: purple[500] }} />
     </Box>

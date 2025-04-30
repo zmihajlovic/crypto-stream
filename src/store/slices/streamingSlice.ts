@@ -1,13 +1,6 @@
-import { StreamMessage } from "@crypto-stream/hooks";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import {
-  BIG_BIZNIS_HERE_ORDER,
-  CHEAP_ORDER,
-  formatMessage,
-  OrderMessage,
-  SOLID_ORDER_ORDER,
-} from "@crypto-stream/utils";
+import { OrderMessage } from "@crypto-stream/utils";
 
 export interface StreamingState {
   isStreaming: boolean;
@@ -22,6 +15,7 @@ const initialState: StreamingState = {
 };
 
 const MAX_STREAMING_ORDERS = 500;
+const MILISECONDS_DIVIDER = 1_000_000;
 
 /**
  * @description StreamingSlice of the app.
@@ -38,27 +32,31 @@ export const streamingSlice = createSlice({
       state.isStreaming = true;
     },
 
-    setStreamingMessages: (state, action: PayloadAction<StreamMessage>) => {
-      const message = formatMessage(action.payload);
+    setOrders: (state, action: PayloadAction<OrderMessage>) => {
+      state.orders = [action.payload, ...state.orders].slice(
+        0,
+        MAX_STREAMING_ORDERS
+      );
+    },
 
-      state.orders = [message, ...state.orders].slice(0, MAX_STREAMING_ORDERS);
-
-      const isAlertOrder =
-        message.alertMessage === CHEAP_ORDER ||
-        message.alertMessage === SOLID_ORDER_ORDER ||
-        message.alertMessage === BIG_BIZNIS_HERE_ORDER;
-
-      if (isAlertOrder) {
-        state.alerts = [message, ...state.alerts];
-      }
+    setAlerts: (state, action: PayloadAction<OrderMessage>) => {
+      state.alerts = [action.payload, ...state.alerts];
     },
   },
 });
 
-export const { stopStreaming, startStreaming, setStreamingMessages } =
+export const { stopStreaming, startStreaming, setOrders, setAlerts } =
   streamingSlice.actions;
 
-/**
- * @description Alerts selector from the store according to conditions
- */
-export const alertsSelector = (state: RootState) => state.streamingSlice.alerts;
+// Get all alerts from the state
+const selectAlerts = (state: RootState) => state.streamingSlice.alerts;
+
+// Selector to filter alerts from the last 1 minute
+export const alertsSelector = createSelector([selectAlerts], (alerts) => {
+  const oneMinuteAgo = Date.now() - 60_000;
+
+  return alerts.filter((alert) => {
+    const receivedAt = alert.reportedNs / MILISECONDS_DIVIDER;
+    return receivedAt >= oneMinuteAgo;
+  });
+});

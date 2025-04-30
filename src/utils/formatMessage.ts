@@ -12,16 +12,16 @@ export interface OrderMessage {
   delayNs: number;
   fsym: string;
   m: string;
-  repotedNs: number;
+  reportedNs: number;
   seq: number;
   side: number;
   tsym: string;
   type: string;
 }
 
-const PRICE_BOUNCE = 50000;
+const PRICE_BOUNCE = 5_0000;
 const QUANTITY_BOUNCE = 10;
-const TOTAL_BOUNCE = 1000000;
+const TOTAL_BOUNCE = 1_000_000;
 export const CHEAP_ORDER = "Cheap order";
 export const BIG_BIZNIS_HERE_ORDER = "Big biznis here";
 export const SOLID_ORDER_ORDER = "Solid order";
@@ -60,7 +60,7 @@ export const formatMessage = (message: StreamMessage): OrderMessage => {
     delayNs: message.DELAYNS,
     fsym: message.FSYM,
     m: message.M,
-    repotedNs: message.REPORTEDNS,
+    reportedNs: message.REPORTEDNS,
     seq: message.SEQ,
     side: message.SIDE,
     tsym: message.TSYM,

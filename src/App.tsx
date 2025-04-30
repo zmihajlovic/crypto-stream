@@ -7,8 +7,6 @@ import { ToastContainer } from "react-toastify";
 import { Box, CssBaseline, styled } from "@mui/material";
 import { useCryptoStreaming } from "./hooks/useCryptoStreaming";
 
-const NOTIFICATION_DURATION = 3500;
-
 const Main = styled("main")(() => ({
   flex: 1,
   padding: "24px 16px",
@@ -26,10 +24,7 @@ export const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={NOTIFICATION_DURATION}
-      />
+      <ToastContainer position="bottom-right" />
     </>
   );
 };
