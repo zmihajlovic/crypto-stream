@@ -1,4 +1,4 @@
-import i18n from "../i18n/i18n";
+const LANGUAGE = navigator.languages[0];
 
 /**
  *
@@ -6,9 +6,9 @@ import i18n from "../i18n/i18n";
  * @returns Formated number depending on locale
  */
 export const getFormatedNumber = (numberValue: number) => {
-  return new Intl.NumberFormat(i18n.language, {
+  return new Intl.NumberFormat(LANGUAGE, {
     minimumIntegerDigits: 2,
     minimumFractionDigits: 2,
-    maximumFractionDigits: 4,
+    maximumFractionDigits: 6,
   }).format(numberValue);
 };

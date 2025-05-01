@@ -5,7 +5,6 @@ import { Order } from "./Order";
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { OrderColoredInformation } from "@crypto-stream/ui";
-import { useTranslation } from "react-i18next";
 
 const ROW_HEIGHT = 90;
 
@@ -27,7 +26,6 @@ const OrdersBox = styled(Box)(() => ({
  */
 export const OrdersPage = () => {
   const orders = useAppSelector((store) => store.streamingSlice.orders);
-  const { t } = useTranslation();
 
   const Row = ({
     index,
@@ -45,17 +43,17 @@ export const OrdersPage = () => {
     <OrdersBox>
       <Box mb={3} px={2}>
         <OrderColoredInformation
-          infoText={t("cheapOrderInfo")}
+          infoText="Order is at a price below $50000."
           color={orange[500]}
           backgroundColor={orange[500]}
         />
         <OrderColoredInformation
-          infoText={t("solidOrderInfo")}
+          infoText="More than 10BTC is in the order."
           color={blue[500]}
           backgroundColor={blue[500]}
         />
         <OrderColoredInformation
-          infoText={t("bigBiznisOrderInfo")}
+          infoText="Order’s total value is over $1m."
           color={red["A400"]}
           backgroundColor={red["A400"]}
         />
@@ -75,7 +73,7 @@ export const OrdersPage = () => {
         </AutoSizer>
       ) : (
         <Typography px={2} color="var(--white)">
-          {t("noOrdersInfo")}
+          There are no orders at the moment.
         </Typography>
       )}
     </OrdersBox>

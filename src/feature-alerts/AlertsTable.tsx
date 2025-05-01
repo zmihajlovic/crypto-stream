@@ -12,7 +12,6 @@ import {
   getFormatedNumber,
   OrderMessage,
 } from "@crypto-stream/utils";
-import { useTranslation } from "react-i18next";
 
 interface AlertsTableProps {
   alerts: OrderMessage[];
@@ -33,7 +32,6 @@ const ROWS_PER_PAGE = 10;
  */
 export const AlertsTable = ({ alerts }: AlertsTableProps) => {
   const [page, setPage] = useState(0);
-  const { t } = useTranslation();
 
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -50,22 +48,22 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
   const columns: Column[] = [
     {
       id: "price",
-      label: `${t("price")} ($)`,
+      label: "Price ($)",
       render: (alert) => getFormatedNumber(alert.price),
     },
     {
       id: "quantity",
-      label: `${t("quantity")} (BTC)`,
-      render: (alert) => getFormatedNumber(alert.quantity),
+      label: "Quantity (BTC)",
+      render: (alert) => alert.quantity,
     },
     {
       id: "total",
-      label: `${t("total")} ($)`,
+      label: "Total",
       render: (alert) => getFormatedNumber(alert.price * alert.quantity),
     },
     {
       id: "alertMessage",
-      label: `${t("alertMessage")}`,
+      label: `Alert message`,
       render: (alert) => alert.alertMessage,
     },
   ];
@@ -101,7 +99,7 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} align="center">
-                  {t("noAlertsInfo")}
+                  There are no alerts at the moment.
                 </TableCell>
               </TableRow>
             )}

@@ -4,8 +4,6 @@ import StopCircleOutlinedIcon from "@mui/icons-material/StopCircleOutlined";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { startStreaming, stopStreaming } from "@crypto-stream/store";
 import { SidebarItem } from "./NavitationItem";
-import { LanguageSwitcher } from "../feature-language-switcher";
-import { useTranslation } from "react-i18next";
 
 const AppHeader = styled("header")(() => ({
   borderBottom: "1px solid var(--gray-12)",
@@ -25,14 +23,13 @@ export const Header = () => {
   const isStreaming = useAppSelector(
     (state) => state.streamingSlice.isStreaming
   );
-  const { t } = useTranslation();
 
   return (
     <AppHeader>
       <nav>
         <List sx={{ display: "flex" }}>
-          <SidebarItem label={t("alerts")} to="/alerts" />
-          <SidebarItem label={t("orders")} to="/orders" />
+          <SidebarItem label="Alerts" to="/alerts" />
+          <SidebarItem label="Orders" to="/orders" />
         </List>
       </nav>
       <Box>
@@ -45,7 +42,7 @@ export const Header = () => {
               dispatch(stopStreaming());
             }}
           >
-            {t("stopStreaming")}
+            Stop Streaming
           </Button>
         ) : (
           <Button
@@ -56,10 +53,9 @@ export const Header = () => {
               dispatch(startStreaming());
             }}
           >
-            {t("startStreaming")}
+            Start streaming
           </Button>
         )}
-        <LanguageSwitcher />
       </Box>
     </AppHeader>
   );
