@@ -5,7 +5,7 @@ import { setAlerts, setOrders } from "@crypto-stream/store";
 import {
   BIG_BIZNIS_HERE_ORDER,
   CHEAP_ORDER,
-  formatMessage,
+  getFormatedMessage,
   SOLID_ORDER_ORDER,
 } from "@crypto-stream/utils";
 
@@ -65,7 +65,7 @@ export const useCryptoStreaming = () => {
       const message: StreamMessage = JSON.parse(event.data);
 
       if (message.TYPE === ORDER_MESSAGE_TYPE) {
-        const formattedMessage = formatMessage(message);
+        const formattedMessage = getFormatedMessage(message);
 
         dispatch(setOrders(formattedMessage));
 

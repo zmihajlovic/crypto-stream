@@ -1,15 +1,14 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router";
 import { OrdersPage } from "./feature-orders/OrdersPage";
-import { Header } from "./header/Header";
-import { Sidebar } from "./sidebar/Sidebar";
+import { Header } from "./feature-header/Header";
 import { AlertsPage } from "./feature-alerts/AlertsPage";
 import { ToastContainer } from "react-toastify";
-import { Box, CssBaseline, styled } from "@mui/material";
+import { CssBaseline, styled } from "@mui/material";
 import { useCryptoStreaming } from "./hooks/useCryptoStreaming";
 
 const Main = styled("main")(() => ({
   flex: 1,
-  padding: "24px 16px",
+  padding: "24px 16px 24px 16px",
 }));
 
 export const App = () => {
@@ -36,19 +35,9 @@ const AppShell = () => {
     <>
       <CssBaseline />
       <Header />
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-        }}
-      >
-        <aside>
-          <Sidebar />
-        </aside>
-        <Main role="main">
-          <Outlet />
-        </Main>
-      </Box>
+      <Main role="main">
+        <Outlet />
+      </Main>
     </>
   );
 };

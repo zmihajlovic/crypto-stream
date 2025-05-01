@@ -2,6 +2,11 @@ import { Box, styled, Typography } from "@mui/material";
 import { orange, red, blue } from "@mui/material/colors";
 import { useAppSelector } from "@crypto-stream/store";
 import { Order } from "./Order";
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+import { OrderColoredInformation } from "@crypto-stream/ui";
+
+const ROW_HEIGHT = 90;
 
 const OrdersBox = styled(Box)(() => ({
   width: "100vw",
@@ -15,74 +20,58 @@ const OrdersBox = styled(Box)(() => ({
   flexDirection: "column",
 }));
 
-const InfoBox = styled("div")<{ color: string }>(({ color }) => ({
-  marginTop: 0,
-  marginBottom: "8px",
-  color,
-  display: "flex",
-  alignItems: "center",
-  padding: "0 16px",
-}));
-
-const InfoSign = styled("span")<{ color: string }>(({ color }) => ({
-  width: "15px",
-  height: "15px",
-  backgroundColor: color,
-  display: "block",
-  marginRight: "12px",
-}));
-
-const InfoText = styled("p")(() => ({
-  fontSize: "14px",
-}));
-
 export const OrdersPage = () => {
   const orders = useAppSelector((store) => store.streamingSlice.orders);
 
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => (
+    <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+      <Order order={orders[index]} />
+    </div>
+  );
+
   return (
     <OrdersBox>
-      <InformationBox
-        infoText="Cheap order(order is at a price below $50000)."
-        color={orange[500]}
-      />
-      <InformationBox
-        infoText="Solid order(more than 10BTC is in the order)."
-        color={blue[500]}
-      />
-      <InformationBox
-        infoText="Big biznis here(order’s total value is over $1m)."
-        color={red["A400"]}
-      />
-      <Box sx={{ mt: 4, overflowY: orders.length ? "scroll" : "auto" }}>
-        {orders.length ? (
-          orders.map((order) => {
-            return <Order order={order} key={order.ccseq}></Order>;
-          })
-        ) : (
-          <Typography px={2} color={"var(--white)"}>
-            No orders at the moment
-          </Typography>
-        )}
+      <Box mb={3} px={2}>
+        <OrderColoredInformation
+          infoText="Order is at a price below $50000."
+          color={orange[500]}
+          backgroundColor={orange[500]}
+        />
+        <OrderColoredInformation
+          infoText="More than 10BTC is in the order."
+          color={blue[500]}
+          backgroundColor={blue[500]}
+        />
+        <OrderColoredInformation
+          infoText="Order’s total value is over $1m."
+          color={red["A400"]}
+          backgroundColor={red["A400"]}
+        />
       </Box>
+      {orders.length ? (
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              height={height - ROW_HEIGHT}
+              itemCount={orders.length}
+              itemSize={ROW_HEIGHT}
+              width={width}
+            >
+              {Row}
+            </List>
+          )}
+        </AutoSizer>
+      ) : (
+        <Typography px={2} color="var(--white)">
+          No orders at the moment
+        </Typography>
+      )}
     </OrdersBox>
-  );
-};
-
-interface InformationBoxProps {
-  infoText: string;
-  color: string;
-}
-
-/**
- * @description Colored information box
- * @param infoText as string, color as string
- * @returns InformationBox
- */
-const InformationBox = ({ infoText, color }: InformationBoxProps) => {
-  return (
-    <InfoBox color={color}>
-      <InfoSign color={color} />
-      <InfoText>{infoText}</InfoText>
-    </InfoBox>
   );
 };

@@ -49,7 +49,7 @@ const getAlertMessage = (price: number, quantity: number) => {
  * @param message as StreamMessage
  * @returns
  */
-export const formatMessage = (message: StreamMessage): OrderMessage => {
+export const getFormatedMessage = (message: StreamMessage): OrderMessage => {
   return {
     price: message.P,
     quantity: message.Q,

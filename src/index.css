@@ -9,15 +9,6 @@
   margin: 0;
 }
 
-body {
-  height: 100vh;
-  overflow: hidden;
-}
-
-#root {
-  height: 100%;
-}
-
 .Toastify__close-button {
   top: 50%;
   transform: translateY(-50%);
