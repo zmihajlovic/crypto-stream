@@ -53,16 +53,3 @@ export const streamingSlice = createSlice({
 
 export const { stopStreaming, startStreaming, setOrders, setAlerts } =
   streamingSlice.actions;
-
-// // Get all alerts from the state
-// const selectAlerts = (state: RootState) => state.streamingSlice.alerts;
-
-// // Selector to filter alerts from the last 1 minute
-// export const alertsSelector = createSelector([selectAlerts], (alerts) => {
-//   const oneMinuteAgo = Date.now() - 60_000;
-
-//   return alerts.filter((alert) => {
-//     const receivedAt = alert.reportedNs / MILISECONDS_DIVIDER;
-//     return receivedAt >= oneMinuteAgo;
-//   });
-// });

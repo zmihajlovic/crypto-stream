@@ -1,7 +1,6 @@
 import {
   AlertMessage,
   getAlertColorMap,
-  getFormatedNumber,
   OrderMessage,
 } from "@crypto-stream/utils";
 import { Box, Divider, styled } from "@mui/material";
@@ -40,10 +39,6 @@ export const Order = ({ order }: OrderProps) => {
     type,
   } = order;
 
-  const formatedPrice = getFormatedNumber(price);
-  const formatedQuantity = getFormatedNumber(quantity);
-  const formatedTotal = getFormatedNumber(total);
-
   const priceKeyword = t("price");
   const quantityKeyword = t("quantity");
   const totalKeyword = t("total");
@@ -53,7 +48,7 @@ export const Order = ({ order }: OrderProps) => {
   return (
     <Box px={2}>
       <OrderBox alertMessage={order.alertMessage}>
-        {`${priceKeyword}: ${formatedPrice} - ${quantityKeyword}: ${formatedQuantity} - ${totalKeyword}: ${formatedTotal} - ${actionKeyword}: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${reportedNs} - SEQ: ${seq} - Side: ${side} - TSYM: ${tsym} - ${typeKeyword}: ${type}`}
+        {`${priceKeyword}: ${price} - ${quantityKeyword}: ${quantity} - ${totalKeyword}: ${total} - ${actionKeyword}: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${reportedNs} - SEQ: ${seq} - Side: ${side} - TSYM: ${tsym} - ${typeKeyword}: ${type}`}
       </OrderBox>
       <Divider sx={{ my: 2, borderColor: purple[500] }} />
     </Box>
