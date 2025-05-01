@@ -62,7 +62,7 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
     {
       id: "alertMessage",
       label: `${t("alertMessage")}`,
-      render: (alert) => alert.alertMessage, // Not translated because it is a value
+      render: (alert) => alert.alertMessage,
     },
   ];
 
