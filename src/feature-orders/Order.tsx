@@ -6,6 +6,7 @@ import {
 } from "@crypto-stream/utils";
 import { Box, Divider, styled } from "@mui/material";
 import { lightGreen, purple } from "@mui/material/colors";
+import { useTranslation } from "react-i18next";
 
 interface OrderProps {
   order: OrderMessage;
@@ -21,6 +22,8 @@ const OrderBox = styled("p")<{ alertMessage: AlertMessage | null }>(
 );
 
 export const Order = ({ order }: OrderProps) => {
+  const { t } = useTranslation();
+
   const {
     price,
     action,
@@ -41,10 +44,16 @@ export const Order = ({ order }: OrderProps) => {
   const formatedQuantity = getFormatedNumber(quantity);
   const formatedTotal = getFormatedNumber(total);
 
+  const priceKeyword = t("price");
+  const quantityKeyword = t("quantity");
+  const totalKeyword = t("total");
+  const actionKeyword = t("action");
+  const typeKeyword = t("type");
+
   return (
     <Box px={2}>
       <OrderBox alertMessage={order.alertMessage}>
-        {`Price: ${formatedPrice} - Quantity: ${formatedQuantity} - Total: ${formatedTotal} - Action: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${reportedNs} - SEQ: ${seq} - Side: ${side}- TSYM: ${tsym} - Type: ${type}`}
+        {`${priceKeyword}: ${formatedPrice} - ${quantityKeyword}: ${formatedQuantity} - ${totalKeyword}: ${formatedTotal} - ${actionKeyword}: ${action} - CCSEQL: ${ccseq} - DelayNS: ${delayNs} - FSYM: ${fsym} - M: ${m} - ReportedNS ${reportedNs} - SEQ: ${seq} - Side: ${side} - TSYM: ${tsym} - ${typeKeyword}: ${type}`}
       </OrderBox>
       <Divider sx={{ my: 2, borderColor: purple[500] }} />
     </Box>

@@ -4,7 +4,6 @@ type NotificationType = "success" | "info" | "warning" | "error";
 
 /**
  * @description Hook to access notify function
- * @returns notify function
  */
 export const useNotification = () => {
   return (type: NotificationType, message: string) => {

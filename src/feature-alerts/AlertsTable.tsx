@@ -12,7 +12,7 @@ import {
   getFormatedNumber,
   OrderMessage,
 } from "@crypto-stream/utils";
-import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 interface AlertsTableProps {
   alerts: OrderMessage[];
@@ -24,33 +24,16 @@ interface Column {
   render: (alert: OrderMessage) => React.ReactNode;
 }
 
-const columns: Column[] = [
-  {
-    id: "price",
-    label: "Price ($)",
-    render: (alert) => getFormatedNumber(alert.price),
-  },
-  {
-    id: "quantity",
-    label: "Quantity (BTC)",
-    render: (alert) => getFormatedNumber(alert.quantity),
-  },
-  {
-    id: "total",
-    label: "Total ($)",
-    render: (alert) => getFormatedNumber(alert.price * alert.quantity),
-  },
-  {
-    id: "alertMessage",
-    label: "Alert Message",
-    render: (alert) => alert.alertMessage,
-  },
-];
-
 const ROWS_PER_PAGE = 10;
 
+/**
+ *
+ * @description Alerts table
+ * @param alerts as OrderMessage[]
+ */
 export const AlertsTable = ({ alerts }: AlertsTableProps) => {
   const [page, setPage] = useState(0);
+  const { t } = useTranslation();
 
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -64,6 +47,29 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
     page * ROWS_PER_PAGE + ROWS_PER_PAGE
   );
 
+  const columns: Column[] = [
+    {
+      id: "price",
+      label: `${t("price")} ($)`,
+      render: (alert) => getFormatedNumber(alert.price),
+    },
+    {
+      id: "quantity",
+      label: `${t("quantity")} (BTC)`,
+      render: (alert) => getFormatedNumber(alert.quantity),
+    },
+    {
+      id: "total",
+      label: `${t("total")} ($)`,
+      render: (alert) => getFormatedNumber(alert.price * alert.quantity),
+    },
+    {
+      id: "alertMessage",
+      label: `${t("alertMessage")}`,
+      render: (alert) => alert.alertMessage, // Not translated because it is a value
+    },
+  ];
+
   return (
     <Paper>
       <TableContainer>
@@ -76,28 +82,28 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {alertsToShow.length ? (
-              alertsToShow.map((alert) => {
-                return (
-                  <TableRow hover key={alert.ccseq}>
-                    {columns.map((column) => {
-                      const cellColor = alert.alertMessage
-                        ? getAlertColorMap(alert.alertMessage)
-                        : null;
+            {alertsToShow.length > 0 ? (
+              alertsToShow.map((alert) => (
+                <TableRow hover key={alert.ccseq}>
+                  {columns.map((column) => {
+                    const cellColor = alert.alertMessage
+                      ? getAlertColorMap(alert.alertMessage)
+                      : null;
 
-                      return (
-                        <TableCell sx={{ color: cellColor }} key={column.id}>
-                          {column.render(alert)}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })
+                    return (
+                      <TableCell sx={{ color: cellColor }} key={column.id}>
+                        {column.render(alert)}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))
             ) : (
-              <Typography textAlign="center" mt={2}>
-                No alerts at the moment
-              </Typography>
+              <TableRow>
+                <TableCell colSpan={columns.length} align="center">
+                  {t("noAlertsInfo")}
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

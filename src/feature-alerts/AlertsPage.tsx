@@ -8,9 +8,15 @@ import { Box } from "@mui/material";
 import { AlertsTable } from "./AlertsTable";
 import { blue, orange, red } from "@mui/material/colors";
 import { OrderColoredInformation } from "@crypto-stream/ui";
+import { useTranslation } from "react-i18next";
 
+/**
+ *
+ * @description Alerts Page
+ */
 export const AlertsPage = () => {
   const alerts = useAppSelector((state) => state.streamingSlice.alerts);
+  const { t } = useTranslation();
 
   const cheapOrderAlerts = [];
   const solidOrderAlerts = [];
@@ -34,15 +40,17 @@ export const AlertsPage = () => {
     <>
       <Box mb={4}>
         <OrderColoredInformation
-          infoText={`Order is at a price below $50000: ${cheapOrderAlerts.length}`}
+          infoText={t("cheapOrderCount", { count: cheapOrderAlerts.length })}
           backgroundColor={orange[500]}
         />
         <OrderColoredInformation
-          infoText={`More than 10BTC is in the order: ${solidOrderAlerts.length}`}
+          infoText={t("solidOrderCount", { count: solidOrderAlerts.length })}
           backgroundColor={blue[500]}
         />
         <OrderColoredInformation
-          infoText={`Order’s total value is over $1m: ${biznisOrderAlerts.length}`}
+          infoText={t("bigBiznisOrderCount", {
+            count: biznisOrderAlerts.length,
+          })}
           backgroundColor={red["A400"]}
         />
       </Box>

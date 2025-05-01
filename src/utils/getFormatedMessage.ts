@@ -45,9 +45,8 @@ const getAlertMessage = (price: number, quantity: number) => {
 };
 
 /**
- * @description format message from webSocket
+ * @description Format message from webSocket
  * @param message as StreamMessage
- * @returns
  */
 export const getFormatedMessage = (message: StreamMessage): OrderMessage => {
   return {

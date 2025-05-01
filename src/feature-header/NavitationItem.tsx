@@ -7,6 +7,8 @@ interface SidebarItemProps extends NavLinkProps {
 }
 
 const SidebarListItem = styled(ListItem)(() => ({
+  width: "auto",
+
   "& a": {
     display: "block",
     width: "100%",
@@ -24,7 +26,6 @@ const SidebarListItem = styled(ListItem)(() => ({
 
 /**
  * @description SidebarItem, used for main Sidebar
- * @returns SidebarItem
  * @param label as string, to as string, icon as ReactNode
  */
 export const SidebarItem = ({ label, to }: SidebarItemProps) => {

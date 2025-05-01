@@ -4,35 +4,38 @@ import StopCircleOutlinedIcon from "@mui/icons-material/StopCircleOutlined";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { startStreaming, stopStreaming } from "@crypto-stream/store";
 import { SidebarItem } from "./NavitationItem";
+import { LanguageSwitcher } from "../feature-language-switcher";
+import { useTranslation } from "react-i18next";
 
 const AppHeader = styled("header")(() => ({
   borderBottom: "1px solid var(--gray-12)",
+  alignItems: "center",
+  justifyContent: "space-between",
+  paddingLeft: "16px",
+  paddingRight: "16px",
+  display: "flex",
 }));
 
 /**
  *
- * @description Main Header of app.
- * @returns Header
+ * @description Header
  */
 export const Header = () => {
   const dispatch = useAppDispatch();
   const isStreaming = useAppSelector(
     (state) => state.streamingSlice.isStreaming
   );
+  const { t } = useTranslation();
 
   return (
     <AppHeader>
-      <Box
-        alignItems="center"
-        justifyContent="space-between"
-        style={{ paddingLeft: "16px", paddingRight: "16px", display: "flex" }}
-      >
-        <nav>
-          <List sx={{ display: "flex" }}>
-            <SidebarItem label="Alerts" to="/alerts" />
-            <SidebarItem label="Orders" to="/orders" />
-          </List>
-        </nav>
+      <nav>
+        <List sx={{ display: "flex" }}>
+          <SidebarItem label={t("alerts")} to="/alerts" />
+          <SidebarItem label={t("orders")} to="/orders" />
+        </List>
+      </nav>
+      <Box>
         {isStreaming ? (
           <Button
             sx={{ ml: 2, textTransform: "capitalize" }}
@@ -42,7 +45,7 @@ export const Header = () => {
               dispatch(stopStreaming());
             }}
           >
-            Stop streaming
+            {t("stopStreaming")}
           </Button>
         ) : (
           <Button
@@ -53,9 +56,10 @@ export const Header = () => {
               dispatch(startStreaming());
             }}
           >
-            Start streaming
+            {t("startStreaming")}
           </Button>
         )}
+        <LanguageSwitcher />
       </Box>
     </AppHeader>
   );
