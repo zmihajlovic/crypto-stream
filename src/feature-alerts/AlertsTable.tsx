@@ -7,7 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { getAlertColorMap, OrderMessage } from "@crypto-stream/utils";
+import {
+  getAlertColorMap,
+  getFormatedNumber,
+  OrderMessage,
+} from "@crypto-stream/utils";
 import { useTranslation } from "react-i18next";
 
 interface AlertsTableProps {
@@ -47,17 +51,17 @@ export const AlertsTable = ({ alerts }: AlertsTableProps) => {
     {
       id: "price",
       label: `${t("price")} ($)`,
-      render: (alert) => alert.price,
+      render: (alert) => getFormatedNumber(alert.price),
     },
     {
       id: "quantity",
       label: `${t("quantity")} (BTC)`,
-      render: (alert) => alert.quantity,
+      render: (alert) => getFormatedNumber(alert.quantity),
     },
     {
       id: "total",
       label: `${t("total")} ($)`,
-      render: (alert) => alert.price * alert.quantity,
+      render: (alert) => getFormatedNumber(alert.price * alert.quantity),
     },
     {
       id: "alertMessage",
