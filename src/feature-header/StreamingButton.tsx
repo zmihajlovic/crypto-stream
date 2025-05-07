@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@crypto-stream/store";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import StopCircleOutlinedIcon from "@mui/icons-material/StopCircleOutlined";
 import { startStreaming, stopStreaming } from "@crypto-stream/store";
@@ -11,7 +11,7 @@ export const StreamingButton = () => {
   );
 
   return (
-    <Box>
+    <>
       {isStreaming ? (
         <Button
           sx={{ ml: 2, textTransform: "capitalize" }}
@@ -35,6 +35,6 @@ export const StreamingButton = () => {
           Start streaming
         </Button>
       )}
-    </Box>
+    </>
   );
 };
