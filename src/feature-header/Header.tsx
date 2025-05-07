@@ -1,9 +1,6 @@
-import { Box, Button, List, styled } from "@mui/material";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import StopCircleOutlinedIcon from "@mui/icons-material/StopCircleOutlined";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { startStreaming, stopStreaming } from "@crypto-stream/store";
+import { List, styled } from "@mui/material";
 import { SidebarItem } from "./NavitationItem";
+import { StreamingButton } from "./StreamingButton";
 
 const AppHeader = styled("header")(() => ({
   borderBottom: "1px solid var(--gray-12)",
@@ -19,11 +16,6 @@ const AppHeader = styled("header")(() => ({
  * @description Header
  */
 export const Header = () => {
-  const dispatch = useAppDispatch();
-  const isStreaming = useAppSelector(
-    (state) => state.streamingSlice.isStreaming
-  );
-
   return (
     <AppHeader>
       <nav>
@@ -32,31 +24,7 @@ export const Header = () => {
           <SidebarItem label="Orders" to="/orders" />
         </List>
       </nav>
-      <Box>
-        {isStreaming ? (
-          <Button
-            sx={{ ml: 2, textTransform: "capitalize" }}
-            startIcon={<StopCircleOutlinedIcon />}
-            variant="outlined"
-            onClick={() => {
-              dispatch(stopStreaming());
-            }}
-          >
-            Stop Streaming
-          </Button>
-        ) : (
-          <Button
-            sx={{ ml: 2, textTransform: "capitalize" }}
-            startIcon={<PlayCircleOutlineIcon />}
-            variant="contained"
-            onClick={() => {
-              dispatch(startStreaming());
-            }}
-          >
-            Start streaming
-          </Button>
-        )}
-      </Box>
+      <StreamingButton />
     </AppHeader>
   );
 };
